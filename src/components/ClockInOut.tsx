@@ -56,13 +56,14 @@ export default function ClockInOut() {
       
       // Limpar mensagem após 3 segundos
       setTimeout(() => setMessage(''), 3000);
-    } catch (error: any) {
-      if (error.code === error.PERMISSION_DENIED) {
+    } catch (error: unknown) {
+      const err = error as { code?: string; message?: string };
+      if (err.code === 'PERMISSION_DENIED') {
         setMessage('Permissão de localização negada. Ative a localização para registrar o ponto.');
-      } else if (error.code === error.TIMEOUT) {
+      } else if (err.code === 'TIMEOUT') {
         setMessage('Tempo limite para obter localização. Tente novamente.');
       } else {
-        setMessage(error.message || 'Erro ao registrar ponto. Tente novamente.');
+        setMessage(err.message || 'Erro ao registrar ponto. Tente novamente.');
       }
       console.error('Erro:', error);
     } finally {

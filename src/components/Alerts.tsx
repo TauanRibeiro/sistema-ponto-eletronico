@@ -1,8 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { format, differenceInHours } from 'date-fns';
-import { ptBR } from 'date-fns/locale';
+import { differenceInHours } from 'date-fns';
 
 type Alert = {
   type: 'warning' | 'info' | 'error';
@@ -23,13 +22,16 @@ export default function Alerts() {
         const newAlerts: Alert[] = [];
         
         // Encontra o último registro
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const allRecords = Object.values(data)
           .flat()
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           .sort((a: any, b: any) => 
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
           );
 
         if (allRecords.length > 0) {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const lastRecord: any = allRecords[0];
           
           // Se o último registro foi uma entrada

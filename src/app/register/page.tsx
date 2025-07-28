@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaClock, FaUserPlus } from 'react-icons/fa';
+import { FaUser, FaEnvelope, FaLock, FaEye, FaEyeSlash, FaUserPlus } from 'react-icons/fa';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -49,8 +49,8 @@ export default function RegisterPage() {
 
       // Registro bem-sucedido
       router.push('/login?message=registered');
-    } catch (error: any) {
-      setError(error.message || 'Erro ao registrar usuário. Tente novamente.');
+    } catch (error: unknown) {
+      setError((error as Error).message || 'Erro ao registrar usuário. Tente novamente.');
     } finally {
       setIsLoading(false);
     }

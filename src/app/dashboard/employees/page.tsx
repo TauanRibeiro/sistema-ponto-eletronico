@@ -75,8 +75,8 @@ export default function EmployeesPage() {
         role: 'employee',
       });
       alert('Funcionário adicionado com sucesso!');
-    } catch (error: any) {
-      alert(error.message);
+    } catch (error: unknown) {
+      alert((error as Error).message || 'Erro desconhecido');
     } finally {
       setSaving(false);
     }
@@ -94,7 +94,7 @@ export default function EmployeesPage() {
       
       await fetchEmployees();
       alert('Funcionário excluído com sucesso!');
-    } catch (error) {
+    } catch {
       alert('Erro ao excluir funcionário');
     }
   };

@@ -129,6 +129,7 @@ export default function DashboardNav() {
                   </div>
                   <div className="max-h-64 overflow-y-auto">
                     {notifications.length > 0 ? (
+                      // eslint-disable-next-line @typescript-eslint/no-explicit-any
                       notifications.map((notification: any) => (
                         <div
                           key={notification.id}

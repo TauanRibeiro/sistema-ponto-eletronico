@@ -24,7 +24,7 @@ export async function GET(request: Request) {
       );
     }
 
-    const whereClause: any = {
+    const whereClause: { createdAt: { gte: Date; lte: Date }; userId?: string } = {
       createdAt: {
         gte: new Date(startDate),
         lte: new Date(endDate + 'T23:59:59'),
@@ -62,7 +62,9 @@ export async function GET(request: Request) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function processRecordsForReport(records: any[]) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const dailyData: { [key: string]: any } = {};
 
   records.forEach(record => {

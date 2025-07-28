@@ -90,7 +90,7 @@ export async function GET(request: Request) {
   }
 }
 
-function calculateWorkedHours(records: any[]): number {
+function calculateWorkedHours(records: { createdAt: string | Date; type: string }[]): number {
   const dailyData: { [key: string]: { entries: Date[], exits: Date[] } } = {};
 
   // Agrupar por dia

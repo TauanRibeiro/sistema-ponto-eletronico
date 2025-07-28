@@ -29,7 +29,7 @@ export async function GET(request: Request) {
       }
       acc[date].push(record);
       return acc;
-    }, {} as Record<string, any[]>);
+    }, {} as Record<string, typeof timeRecords>);
 
     return NextResponse.json(groupedRecords);
   } catch (error) {

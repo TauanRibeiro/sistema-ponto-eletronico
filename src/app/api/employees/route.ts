@@ -5,7 +5,7 @@ import { prisma } from '@/lib/prisma';
 import bcrypt from 'bcryptjs';
 
 // GET: Listar funcionários
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
 
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     }
 
     const data = await request.json();
-    const { name, email, password, department, position, employeeId, role } = data;
+        const { name, email, password, role } = await request.json();
 
     const existingUser = await prisma.user.findUnique({
       where: { email },

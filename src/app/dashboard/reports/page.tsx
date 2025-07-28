@@ -27,7 +27,8 @@ export default function ReportsPage() {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
   const [employeeId, setEmployeeId] = useState('');
-  const [reportData, setReportData] = useState<ReportData[]>([]);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [reportData, setReportData] = useState<any>([]);
   const [loading, setLoading] = useState(false);
 
   const handleGenerateReport = async () => {
@@ -51,7 +52,8 @@ export default function ReportsPage() {
     doc.text('Relatório de Ponto', 14, 16);
     doc.autoTable({
       head: [['Funcionário', 'Data', 'Entrada', 'Saída', 'Total Horas']],
-      body: reportData.map(item => [
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      body: reportData.map((item: any) => [
         item.name,
         item.date,
         item.entry,
