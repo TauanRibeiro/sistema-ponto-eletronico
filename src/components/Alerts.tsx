@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { differenceInHours } from 'date-fns';
 
 type Alert = {
@@ -12,8 +12,7 @@ export default function Alerts() {
   const [alerts, setAlerts] = useState<Alert[]>([]);
   const [lastEntry, setLastEntry] = useState<Date | null>(null);
 
-  useEffect(() => {
-    const checkAlerts = async () => {
+  const checkAlerts = useCallback(async () => {
       try {
         const response = await fetch('/api/time-records');
         if (!response.ok) throw new Error('Falha ao carregar dados');
@@ -22,12 +21,10 @@ export default function Alerts() {
         const newAlerts: Alert[] = [];
         
         // Encontra o último registro
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const allRecords = Object.values(data)
+        const allRecords = (Object.values(data) as Record<string, unknown>[][])
           .flat()
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          .sort((a: any, b: any) => 
-            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          .sort((a: Record<string, unknown>, b: Record<string, unknown>) => 
+            new Date(b.createdAt as string).getTime() - new Date(a.createdAt as string).getTime()
           );
 
         if (allRecords.length > 0) {
@@ -71,13 +68,14 @@ export default function Alerts() {
       } catch (error) {
         console.error('Erro ao verificar alertas:', error);
       }
-    };
+    }, []);
 
+  useEffect(() => {
     checkAlerts();
     // Verifica alertas a cada 5 minutos
     const interval = setInterval(checkAlerts, 5 * 60 * 1000);
     return () => clearInterval(interval);
-  }, []);
+  }, [checkAlerts]);
 
   if (alerts.length === 0) {
     return null;

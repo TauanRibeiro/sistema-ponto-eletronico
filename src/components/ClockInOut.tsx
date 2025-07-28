@@ -50,7 +50,6 @@ export default function ClockInOut() {
         throw new Error(errorData.error || 'Erro ao registrar ponto');
       }
 
-      const data = await response.json();
       setLastAction(type);
       setMessage(type === 'entry' ? 'Entrada registrada com sucesso!' : 'Saída registrada com sucesso!');
       

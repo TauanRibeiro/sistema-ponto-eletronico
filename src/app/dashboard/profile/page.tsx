@@ -15,7 +15,6 @@ interface UserProfile {
 }
 
 export default function ProfilePage() {
-  const { data: session } = useSession();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [editing, setEditing] = useState(false);
   const [formData, setFormData] = useState({

@@ -18,7 +18,6 @@ type Request = {
 };
 
 export default function RequestsPage() {
-  const { data: session } = useSession();
   const [requests, setRequests] = useState<Request[]>([]);
   const [loading, setLoading] = useState(true);
   const [showNewRequestModal, setShowNewRequestModal] = useState(false);

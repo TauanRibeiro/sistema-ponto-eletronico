@@ -10,17 +10,9 @@ import { FaFilePdf, FaFileExcel } from 'react-icons/fa';
 // Extender a interface global do jsPDF para incluir autoTable
 declare module 'jspdf' {
   interface jsPDF {
-    autoTable: (options: any) => jsPDF;
+    autoTable: (options: Record<string, unknown>) => jsPDF;
   }
 }
-
-type ReportData = {
-  name: string;
-  date: string;
-  entry: string;
-  exit: string;
-  totalHours: string;
-};
 
 export default function ReportsPage() {
   const { data: session } = useSession();

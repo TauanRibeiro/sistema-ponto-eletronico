@@ -26,7 +26,7 @@ export default function SettingsPage() {
 
       if (!response.ok) throw new Error('Falha ao salvar configurações');
       alert('Configurações salvas com sucesso!');
-    } catch (error) {
+    } catch {
       alert('Erro ao salvar configurações');
     }
   };
