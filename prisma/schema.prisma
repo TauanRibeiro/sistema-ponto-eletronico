@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+  // Para produção, use PostgreSQL:
+  // provider = "postgresql"
+  // url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String          @id @default(cuid())
+  name            String
+  email           String          @unique
+  password        String
+  role            String          @default("employee") // "employee", "manager", "admin"
+  department      String?
+  position        String?
+  employeeId      String?         @unique // Número de matrícula
+  timeRecords     TimeRecord[]
+  requests        Request[]       // Solicitações feitas pelo usuário
+  approvals       Request[]       @relation("approver") // Solicitações para aprovar
+  notifications   Notification[]
+  workSchedule    WorkSchedule?
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model TimeRecord {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  type        String    // "entry", "exit"
+  status      String    @default("regular") // "regular", "justified", "pending_review"
+  timestamp   DateTime  @default(now())
+  latitude    Float?
+  longitude   Float?
+  ipAddress   String?
+  note        String?   // Para justificativas ou observações
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Request {
+  id          String    @id @default(cuid())
+  type        String    // "time_correction", "absence", "vacation", "overtime"
+  status      String    @default("pending") // "pending", "approved", "rejected"
+  userId      String    // Solicitante
+  user        User      @relation(fields: [userId], references: [id])
+  approverId  String?   // Aprovador
+  approver    User?     @relation("approver", fields: [approverId], references: [id])
+  startDate   DateTime
+  endDate     DateTime?
+  reason      String
+  attachment  String?   // URL do documento anexado
+  response    String?   // Resposta do aprovador
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model WorkSchedule {
+  id              String    @id @default(cuid())
+  userId          String    @unique
+  user            User      @relation(fields: [userId], references: [id])
+  workDays        String    // "1,2,3,4,5" (dias da semana)
+  workHours       Float     // Horas por dia
+  startTime       String    // "09:00"
+  endTime         String    // "18:00"
+  breakStart      String?   // "12:00"
+  breakEnd        String?   // "13:00"
+  flexibleHours   Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
+
+model Notification {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  title       String
+  message     String
+  type        String    // "alert", "reminder", "info"
+  read        Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
