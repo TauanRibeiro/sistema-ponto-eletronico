@@ -38,8 +38,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    const data = await request.json();
-        const { name, email, password, role } = await request.json();
+    const { name, email, password, role } = await request.json();
 
     const existingUser = await prisma.user.findUnique({
       where: { email },

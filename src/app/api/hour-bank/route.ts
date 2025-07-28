@@ -4,7 +4,7 @@ import { authOptions } from '../auth/[...nextauth]/auth-options';
 import { prisma } from '@/lib/prisma';
 import { differenceInMinutes, startOfWeek, endOfWeek, startOfMonth, endOfMonth } from 'date-fns';
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
 

@@ -4,7 +4,7 @@ import { authOptions } from '../auth/[...nextauth]/auth-options';
 import { prisma } from '@/lib/prisma';
 
 // GET: Obter perfil do usuário
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
 
@@ -40,7 +40,7 @@ export async function PUT(request: Request) {
     }
 
     const data = await request.json();
-    const { name, department, position, employeeId } = data;
+        const { name, email } = await request.json();
 
     const updatedUser = await prisma.user.update({
       where: { id: session.user.id },

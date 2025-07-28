@@ -3,7 +3,7 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '../auth/[...nextauth]/auth-options';
 import { prisma } from '@/lib/prisma';
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     const session = await getServerSession(authOptions);
 
@@ -40,7 +40,6 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Não autorizado' }, { status: 401 });
     }
 
-    const data = await request.json();
     const { 
       userId, 
       workDays, 
@@ -50,7 +49,7 @@ export async function POST(request: Request) {
       breakStart, 
       breakEnd, 
       flexibleHours 
-    } = data;
+    } = await request.json();
 
     // Verificar se já existe uma escala para este usuário
     const existingSchedule = await prisma.workSchedule.findUnique({
