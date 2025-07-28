@@ -7,6 +7,7 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
+    "setup": "npx tsx scripts/setup.ts",
     "reset-db": "ts-node --project scripts/tsconfig.json scripts/reset-db.ts",
     "db:push": "prisma db push",
     "postbuild": "prisma db push"
