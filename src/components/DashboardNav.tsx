@@ -74,13 +74,15 @@ export default function DashboardNav() {
   ];
 
   return (
-    <nav className="bg-white shadow-lg border-b border-gray-200">
+    <nav className="glass backdrop-blur-xl border-b border-white/30 shadow-lg sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           {/* Logo e Navegação Principal */}
           <div className="flex items-center">
             <div className="flex-shrink-0 mr-8">
-              <h1 className="text-xl font-bold text-blue-600">Ponto Eletrônico</h1>
+              <h1 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent drop-shadow">
+                Ponto Eletrônico
+              </h1>
             </div>
             <div className="hidden md:flex space-x-1">
               {navigation.map((item) => {
@@ -91,10 +93,10 @@ export default function DashboardNav() {
                   <Link
                     key={item.name}
                     href={item.href}
-                    className={`inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
+                    className={`inline-flex items-center px-4 py-2 text-sm font-semibold rounded-xl transition-all duration-200 ${
                       isActive
-                        ? 'bg-blue-50 text-blue-700 border-2 border-blue-200'
-                        : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                        ? 'bg-white/40 backdrop-blur-sm text-gray-800 shadow-md'
+                        : 'text-gray-700 hover:text-gray-900 hover:bg-white/20 backdrop-blur-sm'
                     }`}
                   >
                     <Icon className="h-4 w-4 mr-2" />
@@ -111,11 +113,11 @@ export default function DashboardNav() {
             <div className="relative">
               <button
                 onClick={() => setNotificationsOpen(!notificationsOpen)}
-                className="relative p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                className="relative p-2 text-gray-700 hover:text-gray-900 hover:bg-white/20 backdrop-blur-sm rounded-xl transition-all"
               >
                 <FaBell className="h-5 w-5" />
                 {notifications.length > 0 && (
-                  <span className="absolute -top-1 -right-1 h-4 w-4 bg-red-500 text-white text-xs rounded-full flex items-center justify-center">
+                  <span className="absolute -top-1 -right-1 h-5 w-5 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs rounded-full flex items-center justify-center font-bold shadow-lg">
                     {notifications.length}
                   </span>
                 )}
@@ -123,9 +125,9 @@ export default function DashboardNav() {
 
               {/* Dropdown de Notificações */}
               {notificationsOpen && (
-                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-                  <div className="p-4 border-b border-gray-200">
-                    <h3 className="text-sm font-semibold text-gray-900">Notificações</h3>
+                <div className="absolute right-0 mt-2 w-80 glass-card rounded-2xl shadow-2xl border border-white/40 z-50 fade-in">
+                  <div className="p-4 border-b border-white/20">
+                    <h3 className="text-sm font-bold text-gray-800">Notificações</h3>
                   </div>
                   <div className="max-h-64 overflow-y-auto">
                     {notifications.length > 0 ? (
@@ -133,20 +135,20 @@ export default function DashboardNav() {
                       notifications.map((notification: any) => (
                         <div
                           key={notification.id}
-                          className="p-4 border-b border-gray-100 hover:bg-gray-50 transition-colors"
+                          className="p-4 border-b border-white/10 hover:bg-white/20 transition-colors"
                         >
-                          <p className="font-medium text-sm text-gray-900">{notification.title}</p>
+                          <p className="font-semibold text-sm text-gray-800">{notification.title}</p>
                           <p className="text-sm text-gray-600 mt-1">{notification.message}</p>
                           <button
                             onClick={() => markAsRead(notification.id)}
-                            className="text-xs text-blue-600 hover:text-blue-800 mt-2"
+                            className="text-xs text-blue-600 hover:text-blue-800 mt-2 font-medium"
                           >
                             Marcar como lida
                           </button>
                         </div>
                       ))
                     ) : (
-                      <div className="p-4 text-sm text-gray-500 text-center">
+                      <div className="p-4 text-sm text-gray-600 text-center">
                         Sem novas notificações
                       </div>
                     )}
@@ -159,10 +161,10 @@ export default function DashboardNav() {
             <div className="flex items-center space-x-3">
               <Link
                 href="/dashboard/profile"
-                className="flex items-center space-x-2 p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-lg transition-colors"
+                className="flex items-center space-x-2 p-2 text-gray-700 hover:text-gray-900 hover:bg-white/20 backdrop-blur-sm rounded-xl transition-all"
               >
                 <FaUser className="h-4 w-4" />
-                <span className="hidden md:block text-sm font-medium">
+                <span className="hidden md:block text-sm font-semibold">
                   {session?.user?.name?.split(' ')[0]}
                 </span>
               </Link>
@@ -170,18 +172,18 @@ export default function DashboardNav() {
               {/* Botão de Logout */}
               <button
                 onClick={handleSignOut}
-                className="flex items-center space-x-2 p-2 text-gray-500 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                className="flex items-center space-x-2 p-2 text-gray-700 hover:text-red-600 hover:bg-red-50/50 backdrop-blur-sm rounded-xl transition-all"
                 title="Sair"
               >
                 <FaSignOutAlt className="h-4 w-4" />
-                <span className="hidden md:block text-sm font-medium">Sair</span>
+                <span className="hidden md:block text-sm font-semibold">Sair</span>
               </button>
             </div>
           </div>
         </div>
 
         {/* Navegação Mobile */}
-        <div className="md:hidden border-t border-gray-200">
+        <div className="md:hidden border-t border-white/20">
           <div className="flex overflow-x-auto space-x-1 py-2">
             {navigation.map((item) => {
               const isActive = pathname === item.href;
@@ -191,10 +193,10 @@ export default function DashboardNav() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`flex-shrink-0 inline-flex items-center px-3 py-2 text-xs font-medium rounded-lg ${
+                  className={`flex-shrink-0 inline-flex items-center px-3 py-2 text-xs font-semibold rounded-xl ${
                     isActive
-                      ? 'bg-blue-50 text-blue-700'
-                      : 'text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                      ? 'bg-white/40 backdrop-blur-sm text-gray-800'
+                      : 'text-gray-700 hover:text-gray-900 hover:bg-white/20 backdrop-blur-sm'
                   }`}
                 >
                   <Icon className="h-4 w-4 mr-1" />
