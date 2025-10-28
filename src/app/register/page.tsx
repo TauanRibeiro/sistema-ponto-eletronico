@@ -57,45 +57,50 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4">
-      <div className="max-w-md w-full">
-        {/* Logo e Header */}
-        <div className="text-center mb-8">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full flex items-center justify-center mb-4">
-            <FaUserPlus className="h-8 w-8 text-white" />
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-green-500 via-emerald-500 to-teal-600"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20"></div>
+      
+      <div className="relative min-h-screen flex items-center justify-center p-4">
+        <div className="max-w-md w-full fade-in">
+          {/* Logo e Header */}
+          <div className="text-center mb-8">
+            <div className="mx-auto w-20 h-20 glass-card rounded-full flex items-center justify-center mb-4 shadow-xl">
+              <FaUserPlus className="h-10 w-10 text-green-600" />
+            </div>
+            <h1 className="text-4xl font-bold text-white mb-2 drop-shadow-lg">
+              Criar Conta
+            </h1>
+            <p className="text-white/90 text-lg drop-shadow">
+              Preencha os dados para se registrar
+            </p>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Criar Conta
-          </h1>
-          <p className="text-gray-600">
-            Preencha os dados para se registrar
-          </p>
-        </div>
 
-        {/* Card de Registro */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
+          {/* Card de Registro com Glassmorphism */}
+          <div className="glass-card rounded-3xl p-8 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-6">
             {error && (
-              <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg text-sm">
+              <div className="bg-red-500/20 backdrop-blur-sm border border-red-300/50 text-white px-4 py-3 rounded-xl text-sm">
                 {error}
               </div>
             )}
 
             {/* Campo Nome */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
                 Nome Completo
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaUser className="h-5 w-5 text-gray-400" />
+                  <FaUser className="h-5 w-5 text-gray-500" />
                 </div>
                 <input
                   id="name"
                   name="name"
                   type="text"
                   required
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                  className="block w-full pl-10 pr-3 py-3 border-0 rounded-xl bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
                   placeholder="Seu nome completo"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -105,19 +110,19 @@ export default function RegisterPage() {
 
             {/* Campo Email */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
                 Email
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaEnvelope className="h-5 w-5 text-gray-400" />
+                  <FaEnvelope className="h-5 w-5 text-gray-500" />
                 </div>
                 <input
                   id="email"
                   name="email"
                   type="email"
                   required
-                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                  className="block w-full pl-10 pr-3 py-3 border-0 rounded-xl bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
                   placeholder="seu@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -127,19 +132,19 @@ export default function RegisterPage() {
 
             {/* Campo Senha */}
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="password" className="block text-sm font-semibold text-gray-700 mb-2">
                 Senha
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaLock className="h-5 w-5 text-gray-400" />
+                  <FaLock className="h-5 w-5 text-gray-500" />
                 </div>
                 <input
                   id="password"
                   name="password"
                   type={showPassword ? 'text' : 'password'}
                   required
-                  className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                  className="block w-full pl-10 pr-10 py-3 border-0 rounded-xl bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
                   placeholder="Mínimo 6 caracteres"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -150,9 +155,9 @@ export default function RegisterPage() {
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
-                    <FaEyeSlash className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                    <FaEyeSlash className="h-5 w-5 text-gray-500 hover:text-gray-700 transition-colors" />
                   ) : (
-                    <FaEye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                    <FaEye className="h-5 w-5 text-gray-500 hover:text-gray-700 transition-colors" />
                   )}
                 </button>
               </div>
@@ -160,19 +165,19 @@ export default function RegisterPage() {
 
             {/* Campo Confirmar Senha */}
             <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="confirmPassword" className="block text-sm font-semibold text-gray-700 mb-2">
                 Confirmar Senha
               </label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                  <FaLock className="h-5 w-5 text-gray-400" />
+                  <FaLock className="h-5 w-5 text-gray-500" />
                 </div>
                 <input
                   id="confirmPassword"
                   name="confirmPassword"
                   type={showConfirmPassword ? 'text' : 'password'}
                   required
-                  className="block w-full pl-10 pr-10 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-colors"
+                  className="block w-full pl-10 pr-10 py-3 border-0 rounded-xl bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all"
                   placeholder="Confirme sua senha"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
@@ -183,9 +188,9 @@ export default function RegisterPage() {
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                 >
                   {showConfirmPassword ? (
-                    <FaEyeSlash className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                    <FaEyeSlash className="h-5 w-5 text-gray-500 hover:text-gray-700 transition-colors" />
                   ) : (
-                    <FaEye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+                    <FaEye className="h-5 w-5 text-gray-500 hover:text-gray-700 transition-colors" />
                   )}
                 </button>
               </div>
@@ -195,11 +200,11 @@ export default function RegisterPage() {
             {password && (
               <div className="space-y-2">
                 <div className="flex space-x-1">
-                  <div className={`h-1 flex-1 rounded ${password.length >= 6 ? 'bg-green-500' : 'bg-gray-200'}`}></div>
-                  <div className={`h-1 flex-1 rounded ${password.length >= 8 ? 'bg-green-500' : 'bg-gray-200'}`}></div>
-                  <div className={`h-1 flex-1 rounded ${/[A-Z]/.test(password) && /[0-9]/.test(password) ? 'bg-green-500' : 'bg-gray-200'}`}></div>
+                  <div className={`h-1 flex-1 rounded ${password.length >= 6 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                  <div className={`h-1 flex-1 rounded ${password.length >= 8 ? 'bg-green-500' : 'bg-gray-300'}`}></div>
+                  <div className={`h-1 flex-1 rounded ${/[A-Z]/.test(password) && /[0-9]/.test(password) ? 'bg-green-500' : 'bg-gray-300'}`}></div>
                 </div>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-700 font-medium">
                   {password.length < 6 && 'Muito fraca'}
                   {password.length >= 6 && password.length < 8 && 'Fraca'}
                   {password.length >= 8 && !/[A-Z]/.test(password) && 'Média'}
@@ -212,8 +217,7 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white py-3 px-4 rounded-lg font-medium hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 transform hover:scale-[1.02]"
-            >
+              className="w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 px-4 rounded-xl font-semibold hover:from-green-700 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 transform hover:scale-[1.02] shadow-lg">
               {isLoading ? (
                 <div className="flex items-center justify-center">
                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
@@ -227,11 +231,11 @@ export default function RegisterPage() {
 
           {/* Link para Login */}
           <div className="mt-6 text-center">
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-700">
               Já tem uma conta?{' '}
               <Link 
                 href="/login" 
-                className="font-medium text-green-600 hover:text-green-500 transition-colors"
+                className="font-semibold text-green-700 hover:text-green-800 transition-colors"
               >
                 Faça login aqui
               </Link>
@@ -240,13 +244,13 @@ export default function RegisterPage() {
 
           {/* Termos de Uso */}
           <div className="mt-6 text-center">
-            <p className="text-xs text-gray-500">
+            <p className="text-xs text-gray-600">
               Ao criar uma conta, você concorda com nossos{' '}
-              <a href="#" className="text-green-600 hover:text-green-500">
+              <a href="#" className="text-green-700 hover:text-green-800 font-medium">
                 Termos de Uso
               </a>{' '}
               e{' '}
-              <a href="#" className="text-green-600 hover:text-green-500">
+              <a href="#" className="text-green-700 hover:text-green-800 font-medium">
                 Política de Privacidade
               </a>
             </p>
@@ -254,7 +258,7 @@ export default function RegisterPage() {
         </div>
 
         {/* Footer */}
-        <div className="text-center mt-8 text-sm text-gray-500">
+        <div className="text-center mt-8 text-sm text-white/80 drop-shadow">
           <p>Sistema de Ponto Eletrônico © 2024</p>
         </div>
       </div>
