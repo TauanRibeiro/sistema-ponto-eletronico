@@ -27,6 +27,8 @@ export default function Alerts() {
             new Date(b.createdAt as string).getTime() - new Date(a.createdAt as string).getTime()
           );
 
+        let currentEntry: Date | null = null;
+        
         if (allRecords.length > 0) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const lastRecord: any = allRecords[0];
@@ -34,6 +36,7 @@ export default function Alerts() {
           // Se o último registro foi uma entrada
           if (lastRecord.type === 'entry') {
             const entryTime = new Date(lastRecord.createdAt);
+            currentEntry = entryTime;
             setLastEntry(entryTime);
             
             const hoursWorking = differenceInHours(new Date(), entryTime);
@@ -57,7 +60,7 @@ export default function Alerts() {
         // Verifica se é um dia útil e se já registrou entrada
         const now = new Date();
         if (now.getHours() >= 9 && now.getHours() < 18 && 
-            now.getDay() !== 0 && now.getDay() !== 6 && !lastEntry) {
+            now.getDay() !== 0 && now.getDay() !== 6 && !currentEntry) {
           newAlerts.push({
             type: 'info',
             message: 'Não se esqueça de registrar sua entrada!'
@@ -68,7 +71,7 @@ export default function Alerts() {
       } catch (error) {
         console.error('Erro ao verificar alertas:', error);
       }
-    }, [lastEntry]);
+    }, []);
 
   useEffect(() => {
     checkAlerts();

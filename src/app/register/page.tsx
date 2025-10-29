@@ -58,8 +58,9 @@ export default function RegisterPage() {
   const getPasswordStrength = () => {
     if (password.length < 6) return 'Muito fraca';
     if (password.length < 8) return 'Fraca';
-    if (!/[A-Z]/.test(password)) return 'Média';
-    if (/[A-Z]/.test(password) && /[0-9]/.test(password)) return 'Forte';
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasNumber = /[0-9]/.test(password);
+    if (hasUpperCase && hasNumber) return 'Forte';
     return 'Média';
   };
 
