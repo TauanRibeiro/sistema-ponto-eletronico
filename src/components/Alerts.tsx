@@ -68,7 +68,7 @@ export default function Alerts() {
       } catch (error) {
         console.error('Erro ao verificar alertas:', error);
       }
-    }, []);
+    }, [lastEntry]);
 
   useEffect(() => {
     checkAlerts();
