@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { format, parseISO } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
+import { FaClock } from 'react-icons/fa';
 
 type TimeRecord = {
   id: string;
@@ -40,54 +41,52 @@ export default function TimeHistory() {
   }, []);
 
   if (loading) {
-    return <div className="text-center mt-4">Carregando histórico...</div>;
+    return <div className="text-center mt-4 text-gray-700 font-medium">Carregando histórico...</div>;
   }
 
   if (error) {
-    return <div className="text-center mt-4 text-red-500">{error}</div>;
+    return <div className="text-center mt-4 text-red-600 font-medium">{error}</div>;
   }
 
   return (
-    <div className="mt-8">
-      <h2 className="text-2xl font-bold mb-4">Histórico de Registros</h2>
-      <div className="space-y-6">
-        {Object.entries(records).map(([date, dayRecords]) => (
-          <div key={date} className="bg-white p-4 rounded-lg shadow">
-            <h3 className="text-lg font-semibold mb-2">
-              {format(parseISO(dayRecords[0].createdAt), "EEEE, d 'de' MMMM", {
-                locale: ptBR,
-              })}
-            </h3>
-            <div className="space-y-2">
-              {dayRecords.map((record) => (
-                <div
-                  key={record.id}
-                  className="flex justify-between items-center text-sm"
+    <div className="space-y-4">
+      {Object.entries(records).map(([date, dayRecords]) => (
+        <div key={date} className="glass-card p-4 rounded-xl shadow-md fade-in">
+          <h3 className="text-base font-bold text-gray-800 mb-3 flex items-center">
+            <FaClock className="mr-2 text-blue-600" />
+            {format(parseISO(dayRecords[0].createdAt), "EEEE, d 'de' MMMM", {
+              locale: ptBR,
+            })}
+          </h3>
+          <div className="space-y-2">
+            {dayRecords.map((record) => (
+              <div
+                key={record.id}
+                className="flex justify-between items-center text-sm p-2 glass backdrop-blur-md rounded-lg"
+              >
+                <span
+                  className={`font-semibold ${
+                    record.type === 'entry'
+                      ? 'text-green-600'
+                      : 'text-red-600'
+                  }`}
                 >
-                  <span
-                    className={
-                      record.type === 'entry'
-                        ? 'text-green-600'
-                        : 'text-red-600'
-                    }
-                  >
-                    {record.type === 'entry' ? '➡️ Entrada' : '⬅️ Saída'}
-                  </span>
-                  <span className="font-mono">
-                    {format(parseISO(record.createdAt), 'HH:mm:ss')}
-                  </span>
-                </div>
-              ))}
-            </div>
-            {dayRecords.length >= 2 && (
-              <div className="mt-2 text-sm text-gray-600 border-t pt-2">
-                <span className="font-semibold">Total do dia: </span>
-                {calculateDayHours(dayRecords)}
+                  {record.type === 'entry' ? '➡️ Entrada' : '⬅️ Saída'}
+                </span>
+                <span className="font-mono font-bold text-gray-800">
+                  {format(parseISO(record.createdAt), 'HH:mm:ss')}
+                </span>
               </div>
-            )}
+            ))}
           </div>
-        ))}
-      </div>
+          {dayRecords.length >= 2 && (
+            <div className="mt-3 text-sm text-gray-700 border-t border-white/30 pt-3 glass backdrop-blur-md p-2 rounded-lg">
+              <span className="font-bold">Total do dia: </span>
+              <span className="font-semibold text-blue-600">{calculateDayHours(dayRecords)}</span>
+            </div>
+          )}
+        </div>
+      ))}
     </div>
   );
 }

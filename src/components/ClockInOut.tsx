@@ -74,17 +74,17 @@ export default function ClockInOut() {
     <div className="relative">
       {/* Relógio Digital */}
       <div className="text-center mb-6">
-        <div className="bg-gradient-to-r from-gray-900 to-gray-700 rounded-lg p-4 mb-4">
-          <div className="text-white">
-            <div className="text-sm opacity-80 mb-1">
+        <div className="glass-card rounded-2xl p-6 mb-4 shadow-lg">
+          <div className="text-gray-800">
+            <div className="text-sm font-medium opacity-80 mb-2">
               {format(currentTime, "EEEE, d 'de' MMMM 'de' yyyy", { locale: ptBR })}
             </div>
-            <div className="text-4xl font-mono font-bold tracking-wider">
+            <div className="text-5xl font-mono font-bold tracking-wider bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {format(currentTime, 'HH:mm:ss')}
             </div>
           </div>
         </div>
-        <div className="flex items-center justify-center text-sm text-gray-500">
+        <div className="flex items-center justify-center text-sm text-gray-600">
           <FaClock className="mr-1" />
           Horário local
         </div>
@@ -95,65 +95,69 @@ export default function ClockInOut() {
         <button
           onClick={() => registerTime('entry')}
           disabled={isLoading}
-          className={`group relative flex flex-col items-center justify-center p-6 rounded-xl border-2 transition-all duration-300 ${
+          className={`group relative flex flex-col items-center justify-center p-6 rounded-2xl border-2 transition-all duration-300 ${
             lastAction === 'entry' 
-              ? 'bg-green-50 border-green-300 text-green-700' 
-              : 'bg-white border-gray-200 hover:border-green-300 hover:bg-green-50 text-gray-700'
-          } ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-md cursor-pointer'}`}
+              ? 'glass-card border-green-400 shadow-lg shadow-green-200' 
+              : 'glass backdrop-blur-md border-white/30 hover:border-green-400 hover:shadow-lg hover:shadow-green-100'
+          } ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 cursor-pointer'}`}
         >
-          <div className={`p-3 rounded-full mb-2 transition-colors ${
-            lastAction === 'entry' ? 'bg-green-100' : 'bg-gray-100 group-hover:bg-green-100'
+          <div className={`p-4 rounded-xl mb-3 transition-all ${
+            lastAction === 'entry' 
+              ? 'bg-gradient-to-br from-green-400 to-green-600 shadow-md' 
+              : 'bg-white/50 group-hover:bg-gradient-to-br group-hover:from-green-400 group-hover:to-green-600'
           }`}>
-            <FaSignInAlt className={`h-6 w-6 ${
-              lastAction === 'entry' ? 'text-green-600' : 'text-gray-600 group-hover:text-green-600'
+            <FaSignInAlt className={`h-7 w-7 ${
+              lastAction === 'entry' ? 'text-white' : 'text-green-600 group-hover:text-white'
             }`} />
           </div>
-          <span className="text-sm font-semibold">Entrada</span>
+          <span className="text-sm font-bold text-gray-800">Entrada</span>
           {lastAction === 'entry' && (
-            <span className="text-xs text-green-600 mt-1">Último registro</span>
+            <span className="text-xs text-green-600 mt-1 font-medium">Último registro</span>
           )}
         </button>
 
         <button
           onClick={() => registerTime('exit')}
           disabled={isLoading}
-          className={`group relative flex flex-col items-center justify-center p-6 rounded-xl border-2 transition-all duration-300 ${
+          className={`group relative flex flex-col items-center justify-center p-6 rounded-2xl border-2 transition-all duration-300 ${
             lastAction === 'exit' 
-              ? 'bg-red-50 border-red-300 text-red-700' 
-              : 'bg-white border-gray-200 hover:border-red-300 hover:bg-red-50 text-gray-700'
-          } ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-md cursor-pointer'}`}
+              ? 'glass-card border-red-400 shadow-lg shadow-red-200' 
+              : 'glass backdrop-blur-md border-white/30 hover:border-red-400 hover:shadow-lg hover:shadow-red-100'
+          } ${isLoading ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105 cursor-pointer'}`}
         >
-          <div className={`p-3 rounded-full mb-2 transition-colors ${
-            lastAction === 'exit' ? 'bg-red-100' : 'bg-gray-100 group-hover:bg-red-100'
+          <div className={`p-4 rounded-xl mb-3 transition-all ${
+            lastAction === 'exit' 
+              ? 'bg-gradient-to-br from-red-400 to-red-600 shadow-md' 
+              : 'bg-white/50 group-hover:bg-gradient-to-br group-hover:from-red-400 group-hover:to-red-600'
           }`}>
-            <FaSignOutAlt className={`h-6 w-6 ${
-              lastAction === 'exit' ? 'text-red-600' : 'text-gray-600 group-hover:text-red-600'
+            <FaSignOutAlt className={`h-7 w-7 ${
+              lastAction === 'exit' ? 'text-white' : 'text-red-600 group-hover:text-white'
             }`} />
           </div>
-          <span className="text-sm font-semibold">Saída</span>
+          <span className="text-sm font-bold text-gray-800">Saída</span>
           {lastAction === 'exit' && (
-            <span className="text-xs text-red-600 mt-1">Último registro</span>
+            <span className="text-xs text-red-600 mt-1 font-medium">Último registro</span>
           )}
         </button>
       </div>
 
       {/* Loading State */}
       {isLoading && (
-        <div className="flex items-center justify-center p-4 bg-blue-50 rounded-lg border border-blue-200 mb-4">
+        <div className="flex items-center justify-center p-4 glass-card rounded-xl border border-blue-300 mb-4 fade-in">
           <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-600 mr-3"></div>
-          <span className="text-blue-700 text-sm">Registrando ponto...</span>
+          <span className="text-blue-700 text-sm font-semibold">Registrando ponto...</span>
         </div>
       )}
 
       {/* Mensagem de Status */}
       {message && (
-        <div className={`p-4 rounded-lg border ${
+        <div className={`p-4 rounded-xl border ${
           message.includes('sucesso') 
-            ? 'bg-green-50 border-green-200 text-green-800' 
-            : 'bg-red-50 border-red-200 text-red-800'
-        }`}>
+            ? 'glass-card border-green-300 text-green-800' 
+            : 'glass-card border-red-300 text-red-800'
+        } fade-in`}>
           <div className="flex items-center">
-            <div className="text-sm">
+            <div className="text-sm font-medium">
               {message}
             </div>
           </div>
@@ -161,9 +165,9 @@ export default function ClockInOut() {
       )}
 
       {/* Informação sobre Localização */}
-      <div className="mt-6 p-3 bg-gray-50 rounded-lg border">
-        <div className="flex items-center text-xs text-gray-600">
-          <FaMapMarkerAlt className="mr-2 text-gray-400" />
+      <div className="mt-6 p-3 glass backdrop-blur-md rounded-xl border border-white/30">
+        <div className="flex items-center text-xs text-gray-700">
+          <FaMapMarkerAlt className="mr-2 text-gray-500" />
           <span>Localização é registrada automaticamente para validação</span>
         </div>
       </div>

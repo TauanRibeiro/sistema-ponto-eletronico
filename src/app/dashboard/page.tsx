@@ -15,10 +15,13 @@ export default function DashboardPage() {
 
   if (status === 'loading') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
-          <p className="mt-4 text-gray-600">Carregando...</p>
+      <div className="min-h-screen relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-400 to-pink-400"></div>
+        <div className="relative min-h-screen flex items-center justify-center">
+          <div className="text-center glass-card p-8 rounded-3xl">
+            <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-white mx-auto mb-4"></div>
+            <p className="text-gray-800 font-semibold">Carregando...</p>
+          </div>
         </div>
       </div>
     );
@@ -32,159 +35,165 @@ export default function DashboardPage() {
   const greeting = currentHour < 12 ? 'Bom dia' : currentHour < 18 ? 'Boa tarde' : 'Boa noite';
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <DashboardNav />
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Animated Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-400 via-purple-400 to-pink-400"></div>
+      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJ3aGl0ZSIgc3Ryb2tlLW9wYWNpdHk9IjAuMSIgc3Ryb2tlLXdpZHRoPSIxIi8+PC9wYXR0ZXJuPjwvZGVmcz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyaWQpIi8+PC9zdmc+')] opacity-20"></div>
       
-      {/* Header com gradiente moderno */}
-      <header className="bg-gradient-to-r from-blue-600 to-indigo-600 shadow-lg">
-        <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-white">
-                {greeting}, {session.user?.name?.split(' ')[0]}! 👋
-              </h1>
-              <p className="text-blue-100 mt-2">
-                {new Date().toLocaleDateString('pt-BR', { 
-                  weekday: 'long', 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric' 
-                })}
-              </p>
-            </div>
-            <div className="text-right">
-              <div className="text-white">
-                <FaClock className="inline mr-2" />
-                {new Date().toLocaleTimeString('pt-BR', { 
-                  hour: '2-digit', 
-                  minute: '2-digit' 
-                })}
+      <div className="relative">
+        <DashboardNav />
+        
+        {/* Header com glassmorphism */}
+        <header className="glass backdrop-blur-xl border-b border-white/20 shadow-lg">
+          <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between">
+              <div className="fade-in">
+                <h1 className="text-3xl font-bold text-white drop-shadow-lg">
+                  {greeting}, {session.user?.name?.split(' ')[0]}! 👋
+                </h1>
+                <p className="text-white/90 mt-2 drop-shadow">
+                  {new Date().toLocaleDateString('pt-BR', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  })}
+                </p>
+              </div>
+              <div className="text-right slide-in">
+                <div className="text-white drop-shadow-lg text-2xl font-mono font-bold">
+                  <FaClock className="inline mr-2" />
+                  {new Date().toLocaleTimeString('pt-BR', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                  })}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        {/* Cards de Ação Rápida */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center">
-              <div className="p-3 rounded-full bg-green-100">
-                <FaClock className="h-6 w-6 text-green-600" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Registrar Ponto</p>
-                <p className="text-xs text-gray-500">Entrada/Saída</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center">
-              <div className="p-3 rounded-full bg-blue-100">
-                <FaChartLine className="h-6 w-6 text-blue-600" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Banco de Horas</p>
-                <p className="text-xs text-gray-500">Saldo atual</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center">
-              <div className="p-3 rounded-full bg-yellow-100">
-                <FaBell className="h-6 w-6 text-yellow-600" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Alertas</p>
-                <p className="text-xs text-gray-500">Pendências</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-md p-6 border border-gray-100 hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center">
-              <div className="p-3 rounded-full bg-purple-100">
-                <FaCalendarCheck className="h-6 w-6 text-purple-600" />
-              </div>
-              <div className="ml-4">
-                <p className="text-sm font-medium text-gray-600">Resumo</p>
-                <p className="text-xs text-gray-500">Hoje</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Grid Principal */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Coluna Principal */}
-          <div className="lg:col-span-2 space-y-8">
-            <div className="bg-white rounded-xl shadow-md overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900 flex items-center">
-                  <FaClock className="mr-2 text-blue-600" />
-                  Registrar Ponto
-                </h2>
-              </div>
-              <div className="p-6">
-                <ClockInOut />
+        <main className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+          {/* Cards de Ação Rápida */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 fade-in">
+            <div className="glass-card rounded-2xl p-6 hover:scale-105 transition-all duration-300">
+              <div className="flex items-center">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-green-400 to-green-600 shadow-lg">
+                  <FaClock className="h-6 w-6 text-white" />
+                </div>
+                <div className="ml-4">
+                  <p className="text-sm font-semibold text-gray-800">Registrar Ponto</p>
+                  <p className="text-xs text-gray-600">Entrada/Saída</p>
+                </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-md overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900">
-                  Histórico de Registros
-                </h2>
+            <div className="glass-card rounded-2xl p-6 hover:scale-105 transition-all duration-300">
+              <div className="flex items-center">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-blue-400 to-blue-600 shadow-lg">
+                  <FaChartLine className="h-6 w-6 text-white" />
+                </div>
+                <div className="ml-4">
+                  <p className="text-sm font-semibold text-gray-800">Banco de Horas</p>
+                  <p className="text-xs text-gray-600">Saldo atual</p>
+                </div>
               </div>
-              <div className="p-6">
-                <TimeHistory />
+            </div>
+
+            <div className="glass-card rounded-2xl p-6 hover:scale-105 transition-all duration-300">
+              <div className="flex items-center">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg">
+                  <FaBell className="h-6 w-6 text-white" />
+                </div>
+                <div className="ml-4">
+                  <p className="text-sm font-semibold text-gray-800">Alertas</p>
+                  <p className="text-xs text-gray-600">Pendências</p>
+                </div>
+              </div>
+            </div>
+
+            <div className="glass-card rounded-2xl p-6 hover:scale-105 transition-all duration-300">
+              <div className="flex items-center">
+                <div className="p-3 rounded-xl bg-gradient-to-br from-purple-400 to-purple-600 shadow-lg">
+                  <FaCalendarCheck className="h-6 w-6 text-white" />
+                </div>
+                <div className="ml-4">
+                  <p className="text-sm font-semibold text-gray-800">Resumo</p>
+                  <p className="text-xs text-gray-600">Hoje</p>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Sidebar */}
-          <div className="space-y-8">
-            <div className="bg-white rounded-xl shadow-md overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900 flex items-center">
-                  <FaChartLine className="mr-2 text-green-600" />
-                  Resumo do Trabalho
-                </h2>
+          {/* Grid Principal */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Coluna Principal */}
+            <div className="lg:col-span-2 space-y-8 slide-in">
+              <div className="glass-card rounded-2xl overflow-hidden shadow-xl">
+                <div className="px-6 py-4 border-b border-white/20 bg-gradient-to-r from-blue-500/20 to-indigo-500/20">
+                  <h2 className="text-lg font-bold text-gray-800 flex items-center">
+                    <FaClock className="mr-2 text-blue-600" />
+                    Registrar Ponto
+                  </h2>
+                </div>
+                <div className="p-6">
+                  <ClockInOut />
+                </div>
               </div>
-              <div className="p-6">
-                <WorkSummary />
+
+              <div className="glass-card rounded-2xl overflow-hidden shadow-xl">
+                <div className="px-6 py-4 border-b border-white/20 bg-gradient-to-r from-purple-500/20 to-pink-500/20">
+                  <h2 className="text-lg font-bold text-gray-800">
+                    Histórico de Registros
+                  </h2>
+                </div>
+                <div className="p-6">
+                  <TimeHistory />
+                </div>
               </div>
             </div>
 
-            <div className="bg-white rounded-xl shadow-md overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900 flex items-center">
-                  <FaChartLine className="mr-2 text-blue-600" />
-                  Banco de Horas
-                </h2>
+            {/* Sidebar */}
+            <div className="space-y-8 slide-in">
+              <div className="glass-card rounded-2xl overflow-hidden shadow-xl">
+                <div className="px-6 py-4 border-b border-white/20 bg-gradient-to-r from-green-500/20 to-emerald-500/20">
+                  <h2 className="text-lg font-bold text-gray-800 flex items-center">
+                    <FaChartLine className="mr-2 text-green-600" />
+                    Resumo do Trabalho
+                  </h2>
+                </div>
+                <div className="p-6">
+                  <WorkSummary />
+                </div>
               </div>
-              <div className="p-6">
-                <HourBank />
-              </div>
-            </div>
 
-            <div className="bg-white rounded-xl shadow-md overflow-hidden">
-              <div className="px-6 py-4 border-b border-gray-200">
-                <h2 className="text-lg font-semibold text-gray-900 flex items-center">
-                  <FaBell className="mr-2 text-yellow-600" />
-                  Alertas e Notificações
-                </h2>
+              <div className="glass-card rounded-2xl overflow-hidden shadow-xl">
+                <div className="px-6 py-4 border-b border-white/20 bg-gradient-to-r from-blue-500/20 to-cyan-500/20">
+                  <h2 className="text-lg font-bold text-gray-800 flex items-center">
+                    <FaChartLine className="mr-2 text-blue-600" />
+                    Banco de Horas
+                  </h2>
+                </div>
+                <div className="p-6">
+                  <HourBank />
+                </div>
               </div>
-              <div className="p-6">
-                <Alerts />
+
+              <div className="glass-card rounded-2xl overflow-hidden shadow-xl">
+                <div className="px-6 py-4 border-b border-white/20 bg-gradient-to-r from-yellow-500/20 to-orange-500/20">
+                  <h2 className="text-lg font-bold text-gray-800 flex items-center">
+                    <FaBell className="mr-2 text-yellow-600" />
+                    Alertas e Notificações
+                  </h2>
+                </div>
+                <div className="p-6">
+                  <Alerts />
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </main>
+        </main>
+      </div>
     </div>
   );
 }
